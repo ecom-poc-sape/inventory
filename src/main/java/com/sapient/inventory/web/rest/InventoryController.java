@@ -20,10 +20,11 @@ import com.sapient.inventory.service.InventoryService;
 
 
 @RestController
+@RequestMapping("/inventory")
 public class InventoryController {
 
 	@Autowired
-	InventoryService inventoryService;
+	private InventoryService inventoryService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/items")
 	public List<Inventory> getItemList(){	
@@ -39,8 +40,8 @@ public class InventoryController {
 	
 	@PutMapping("/items/{id}")
 	public ResponseEntity<InventoryResponse> updateItemList(@RequestParam Long id,
-															@RequestBody Inventory inventoryPojo){
-		InventoryResponse ir  = inventoryService.updateInventoryItem(id, inventoryPojo);
+														 @RequestBody Inventory inventoryPojo){
+		InventoryResponse ir  = inventoryService.updateInventoryItem(id, inventoryPojo );
 		return new ResponseEntity<InventoryResponse>(ir, HttpStatus.ACCEPTED);
 	}
 

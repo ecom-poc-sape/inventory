@@ -1,16 +1,28 @@
 package com.sapient.inventory.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document
 public class Inventory {
 
 	@Id
-	Long id;
-	String productId;
-	String wireHouseLoc;
-	int quantity;
+	private Long id;
+	private String productId;
+	private String wireHouseLoc;
+	private int quantity;
+	
+	
+	public Inventory(String productId, String wireHouseLoc, int quantity) {
+		super();
+		this.productId = productId;
+		this.wireHouseLoc = wireHouseLoc;
+		this.quantity = quantity;
+	}
+	
+	public Inventory() {
+		
+	}
 	
 	public Long getId() {
 		return id;

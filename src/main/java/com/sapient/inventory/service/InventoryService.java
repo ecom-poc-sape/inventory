@@ -1,6 +1,9 @@
 package com.sapient.inventory.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +20,21 @@ import com.sapient.inventory.domain.InventoryRepository;
 @Service
 public class InventoryService 
 {
-    @Autowired
-	InventoryRepository inventoryRepository;
 	
+    @Autowired
+	private InventoryRepository inventoryRepository;
+	
+    @PostConstruct
+	public void init() {
+    	inventoryRepository.save(new Inventory("product-1", "Bangalore", 1));
+		
+		  inventoryRepository.save(new Inventory("product-2", "Bangalore", 2));
+		  inventoryRepository.save(new Inventory("product-3", "Mumbai", 3));
+		  inventoryRepository.save(new Inventory("product-4", "Mumbai", 4));
+		 
+	} 
+    
+    
 	public List<Inventory> getItemList() {
 		// TODO Auto-generated method stub
 		List<Inventory> list = (List<Inventory>) inventoryRepository.findAll();
@@ -37,7 +52,7 @@ public class InventoryService
 
 	public InventoryResponse updateInventoryItem(Long id, Inventory inventory) {
 		// TODO Auto-generated method stub
-		Inventory inventory1 = inventoryRepository.findOne(id);
+		Optional<Inventory> inventory1 = inventoryRepository.findById(id);
 		inventory.setId(id);
 		inventoryRepository.save(inventory);
 		
@@ -48,8 +63,9 @@ public class InventoryService
 
 	public InventoryResponse deleteInventoryItem(Long id) {
 		// TODO Auto-generated method stub
-		inventoryRepository.delete(id);
+		inventoryRepository.deleteById(id);
 		
-		return new InventoryResponse(HttpStatus.ACCEPTED, "Updated inventory successfully");	}
+		return new InventoryResponse(HttpStatus.ACCEPTED, "Updated inventory successfully");	
+	}
 	
 }
