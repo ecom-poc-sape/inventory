@@ -38,14 +38,15 @@ public class InventoryController {
 	}
 	
 	@PutMapping("/items/{id}")
-	public ResponseEntity<InventoryResponse> updateItemList(@RequestParam String id){
-		InventoryResponse ir  = inventoryService.updateInventoryItem(id);
+	public ResponseEntity<InventoryResponse> updateItemList(@RequestParam Long id,
+															@RequestBody Inventory inventoryPojo){
+		InventoryResponse ir  = inventoryService.updateInventoryItem(id, inventoryPojo);
 		return new ResponseEntity<InventoryResponse>(ir, HttpStatus.ACCEPTED);
 	}
 
 
 	@DeleteMapping("/items/{id}")
-	public ResponseEntity<InventoryResponse> deleteItemList(@RequestParam String id){
+	public ResponseEntity<InventoryResponse> deleteItemList(@RequestParam Long id){
 		InventoryResponse ir  = inventoryService.deleteInventoryItem(id);
 		return new ResponseEntity<InventoryResponse>(ir, HttpStatus.OK);
 	}

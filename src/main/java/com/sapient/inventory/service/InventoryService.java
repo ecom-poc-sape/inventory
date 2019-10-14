@@ -2,10 +2,13 @@ package com.sapient.inventory.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.sapient.inventory.InventoryResponse;
 import com.sapient.inventory.domain.Inventory;
+import com.sapient.inventory.domain.InventoryRepository;
 
 /**
  * Hello world!
@@ -14,31 +17,39 @@ import com.sapient.inventory.domain.Inventory;
 @Service
 public class InventoryService 
 {
-    
+    @Autowired
+	InventoryRepository inventoryRepository;
 	
 	public List<Inventory> getItemList() {
 		// TODO Auto-generated method stub
-		return null;
+		List<Inventory> list = (List<Inventory>) inventoryRepository.findAll();
+		return list;
 	}
 
 	
-	public InventoryResponse addInventoryItem(Inventory inventoryPojo) {
-		// TODO Auto-generated method stub
+	public InventoryResponse addInventoryItem(Inventory inventory) {
+		
 		// InventoryResponse
-		return null;
+		inventoryRepository.save(inventory);
+		return new InventoryResponse(HttpStatus.ACCEPTED, "created");
 	}
 
 
-	public InventoryResponse updateInventoryItem(String id) {
+	public InventoryResponse updateInventoryItem(Long id, Inventory inventory) {
 		// TODO Auto-generated method stub
-		return null;
+		Inventory inventory1 = inventoryRepository.findOne(id);
+		inventory.setId(id);
+		inventoryRepository.save(inventory);
+		
+		return new InventoryResponse(HttpStatus.ACCEPTED, "Updated inventory successfully");
 
 	}
 
 
-	public InventoryResponse deleteInventoryItem(String id) {
+	public InventoryResponse deleteInventoryItem(Long id) {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		inventoryRepository.delete(id);
+		
+		return new InventoryResponse(HttpStatus.ACCEPTED, "Updated inventory successfully");	}
 	
 }

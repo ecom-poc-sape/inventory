@@ -7,6 +7,14 @@ public class InventoryResponse {
 	HttpStatus status;
 	String errorMessage;
 	
+	
+	
+	public InventoryResponse(HttpStatus status, String errorMessage) {
+		super();
+		this.status = status;
+		this.errorMessage = errorMessage;
+	}
+
 	public HttpStatus getStatus() {
 		return status;
 	}

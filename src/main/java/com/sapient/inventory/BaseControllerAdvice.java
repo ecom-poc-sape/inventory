@@ -11,9 +11,7 @@ public class BaseControllerAdvice {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<InventoryResponse> handelException() {
-		InventoryResponse ir = new InventoryResponse();
-		ir.setErrorMessage("Internal Server error");
-		ir.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+		InventoryResponse ir = new InventoryResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server error");
 		return new ResponseEntity<InventoryResponse>(ir,HttpStatus.INTERNAL_SERVER_ERROR);
 		
 	}
