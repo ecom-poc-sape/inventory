@@ -21,37 +21,35 @@ import com.sapient.inventory.domain.Inventory;
 import com.sapient.inventory.domain.Product;
 import com.sapient.inventory.service.InventoryService;
 
-
 @RestController
 @RequestMapping("/inventory")
 public class InventoryController {
 
 	@Autowired
 	private InventoryService inventoryService;
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/items")
-	public List<Inventory> getItemList(){	
+	public List<Inventory> getItemList() {
 		return inventoryService.getItemList();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/items")
 	public ResponseEntity<InventoryResponse> addItemList(@RequestBody Inventory inventoryPojo) {
-		InventoryResponse ir  = inventoryService.addInventoryItem(inventoryPojo);
+		InventoryResponse ir = inventoryService.addInventoryItem(inventoryPojo);
 		return new ResponseEntity<InventoryResponse>(ir, HttpStatus.CREATED);
-		
+
 	}
-	
+
 	@PutMapping("/items/{id}")
 	public ResponseEntity<InventoryResponse> updateItemList(@RequestParam String id,
 														 @RequestBody Inventory inventoryPojo){
-		InventoryResponse ir  = inventoryService.updateInventoryItem(id, inventoryPojo );
+		InventoryResponse ir = inventoryService.updateInventoryItem(id, inventoryPojo);
 		return new ResponseEntity<InventoryResponse>(ir, HttpStatus.ACCEPTED);
 	}
 
-
 	@DeleteMapping("/items/{id}")
-	public ResponseEntity<InventoryResponse> deleteItemList(@RequestParam String id){
-		InventoryResponse ir  = inventoryService.deleteInventoryItem(id);
+	public ResponseEntity<InventoryResponse> deleteItemList(@RequestParam String id) {
+		InventoryResponse ir = inventoryService.deleteInventoryItem(id);
 		return new ResponseEntity<InventoryResponse>(ir, HttpStatus.OK);
 	}
 	

@@ -9,23 +9,19 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
 import com.sapient.inventory.InventoryResponse;
 import com.sapient.inventory.domain.Inventory;
 import com.sapient.inventory.domain.Product;
 import com.sapient.inventory.repository.InventoryRepository;
 import com.sapient.inventory.repository.ProductRepository;
 
-/**
- * Hello world!
- *
- */
 @Service
-public class InventoryService 
-{
-	
-    @Autowired
+public class InventoryService {
+
+	@Autowired
 	private InventoryRepository inventoryRepository;
-	
+
     @Autowired
 	private ProductRepository productRepository;
     
@@ -45,28 +41,23 @@ public class InventoryService
 
 	} 
     
-    
+
 	public List<Inventory> getItemList() {
-		// TODO Auto-generated method stub
 		List<Inventory> list = (List<Inventory>) inventoryRepository.findAll();
 		return list;
 	}
 
-	
 	public InventoryResponse addInventoryItem(Inventory inventory) {
-		
-		// InventoryResponse
+
 		inventoryRepository.save(inventory);
 		return new InventoryResponse(HttpStatus.ACCEPTED, "created");
 	}
-
 
 	public InventoryResponse updateInventoryItem(String id, Inventory inventory) {
 		// TODO Auto-generated method stub
 		//Inventory inventory1 = inventoryRepository.findAllById(id);
 		inventory.setId(id);
 		inventoryRepository.save(inventory);
-		
 		return new InventoryResponse(HttpStatus.ACCEPTED, "Updated inventory successfully");
 
 	}
@@ -127,5 +118,5 @@ public class InventoryService
 		}
 		return new InventoryResponse(HttpStatus.ACCEPTED, "Updated inventory successfully");
 	}
-	
+		
 }
